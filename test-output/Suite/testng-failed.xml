@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="tests">
+  <parameter name="browser" value="GC"/>
+  <listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+  </listeners>
+  <test name="Set1(failed)" parallel="tests">
+    <parameter name="browser" value="GC"/>
+    <classes>
+      <class name="Scenario_Driver_Component.Search_an_item">
+        <methods>
+          <include name="launchBrowser"/>
+          <include name="init_extentSetup"/>
+          <include name="CloseBrowser"/>
+        </methods>
+      </class> <!-- Scenario_Driver_Component.Search_an_item -->
+      <class name="Scenario_Driver_Component.searchParticularItem">
+        <methods>
+          <include name="searchAParticularItem" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- Scenario_Driver_Component.searchParticularItem -->
+    </classes>
+  </test> <!-- Set1(failed) -->
+</suite> <!-- Failed suite [Suite] -->
