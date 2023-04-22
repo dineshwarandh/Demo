@@ -1,7 +1,7 @@
 name: Cron Check
 
 on:
-  schedule:
+ # schedule:
    # - cron: "1/2 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
 
   workflow_dispatch:
