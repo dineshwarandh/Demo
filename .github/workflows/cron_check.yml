@@ -1,0 +1,48 @@
+name: Cron Check
+
+on:
+  schedule:
+    - cron: "1/2 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+
+  workflow_dispatch:
+    inputs:
+      appID:
+        description: Lambdatest App URL
+        required: false
+        default: ""
+        type: string
+      environment:
+        description: Test Execution Environment
+        required: false
+        default: UAT
+        type: choice
+        options:
+          - UAT
+
+jobs:
+  check-cron:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Environment Variables for Nightly Execution
+        if: github.event.schedule=='1/2 * * * *'
+        run: |
+          echo "ENVIRONMENT=UAT" >> $GITHUB_ENV
+          echo "ENTITY=SOMETHING" >> $GITHUB_ENV
+          echo "PLATFORM=Android" >> $GITHUB_ENV
+
+      - name: Get App ID
+        id: get-lt-app-id
+        run: echo "Test job"
+        env:
+          LT_USER: dineshwaran.sivakumar
+          LT_PASSWORD: ${{ secrets.CP_AUTOMATION_LAMBDATEST_PASSWORD }}
+          PLATFORM: ${{env.PLATFORM || github.event.inputs.platform}}
+          ENVIRONMENT: ${{env.ENVIRONMENT || github.event.inputs.environment}}
+          ENTITY: ${{env.ENTITY || github.event.inputs.entity}}
