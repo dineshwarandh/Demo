@@ -1,8 +1,9 @@
 name: Cron Check
 
 on:
- # schedule:
-   # - cron: "1/2 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+  schedule:
+    - cron: "30 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+    - cron: "32 * * * *"
 
   workflow_dispatch:
     inputs:
@@ -30,11 +31,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set Environment Variables for Nightly Execution
-        if: github.event.schedule=='1/2 * * * *'
+      - name: Set Environment Variables for UAT Nightly Execution
+        if: github.event.schedule=='30 * * * *'
         run: |
           echo "ENVIRONMENT=UAT" >> $GITHUB_ENV
-          echo "ENTITY=SOMETHING" >> $GITHUB_ENV
+          echo "ENTITY=SOMETHING_IN_UAT" >> $GITHUB_ENV
+          echo "PLATFORM=Android" >> $GITHUB_ENV
+        
+      - name: Set Environment Variables for PROD Nightly Execution
+        if: github.event.schedule=='32 * * * *'
+        run: |
+          echo "ENVIRONMENT=PROD" >> $GITHUB_ENV
+          echo "ENTITY=SOMETHING_IN_PROD" >> $GITHUB_ENV
           echo "PLATFORM=Android" >> $GITHUB_ENV
 
       - name: Get App ID
