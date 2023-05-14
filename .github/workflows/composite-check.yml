@@ -1,0 +1,37 @@
+name: Composite actions Check
+
+on:
+#   schedule:
+#     - cron: "1 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+#     - cron: "3 * * * *"
+
+  workflow_dispatch:
+    inputs:
+      appID:
+        description: Lambdatest App URL
+        required: false
+        default: ""
+        type: string
+      environment:
+        description: Test Execution Environment
+        required: false
+        default: UAT
+        type: choice
+        options:
+          - UAT
+
+jobs:
+  check-cron:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check internal composite action
+        uses: ./.github/actions/e2e-workflow
+        with:
+          who-to-greet: 'NOBODY'
