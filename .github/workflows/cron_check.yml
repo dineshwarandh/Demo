@@ -1,9 +1,9 @@
 name: Cron Check
 
 on:
-  schedule:
-    - cron: "1 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
-    - cron: "3 * * * *"
+#   schedule:
+#     - cron: "1 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+#     - cron: "3 * * * *"
 
   workflow_dispatch:
     inputs:
