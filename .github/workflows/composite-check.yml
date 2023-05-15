@@ -1,9 +1,9 @@
 name: Composite actions Check
 
 on:
-#   schedule:
-#     - cron: "1 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
-#     - cron: "3 * * * *"
+  #   schedule:
+  #     - cron: "1 * * * *" # Runs at 01:35 UTC everyday github.event.inputs.manual-dep
+  #     - cron: "3 * * * *"
 
   workflow_dispatch:
     inputs:
@@ -34,4 +34,13 @@ jobs:
       - name: Check internal composite action
         uses: ./.github/actions/e2e-workflow
         with:
-          who-to-greet: 'NOBODY'
+          who-to-greet: "NOBODY"
+
+      - name: Job fail
+        continue-on-error: true
+        run: |
+          exit 1
+
+      - name: Next job
+        run: |
+          echo Hello
