@@ -23,6 +23,7 @@ on:
 jobs:
   check-cron:
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     strategy:
       matrix:
@@ -37,7 +38,6 @@ jobs:
           who-to-greet: "NOBODY"
 
       - name: Job fail
-        continue-on-error: true
         run: |
           exit 1
 
